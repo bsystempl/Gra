@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_gra" default="compile.module.gra">
+  <dirname property="module.gra.basedir" file="${ant.file.module_gra}"/>
+  
+  <property name="module.jdk.home.gra" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.gra" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.gra" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.gra" value="-encoding windows-1250 -source 8 ${compiler.args}"/>
+  
+  <property name="gra.output.dir" value="${module.gra.basedir}/out/production/Gra"/>
+  <property name="gra.testoutput.dir" value="${module.gra.basedir}/out/test/Gra"/>
+  
+  <path id="gra.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="gra.module.production.classpath">
+    <path refid="${module.jdk.classpath.gra}"/>
+  </path>
+  
+  <path id="gra.runtime.production.module.classpath">
+    <pathelement location="${gra.output.dir}"/>
+  </path>
+  
+  <path id="gra.module.classpath">
+    <path refid="${module.jdk.classpath.gra}"/>
+    <pathelement location="${gra.output.dir}"/>
+  </path>
+  
+  <path id="gra.runtime.module.classpath">
+    <pathelement location="${gra.testoutput.dir}"/>
+    <pathelement location="${gra.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.gra">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.gra">
+    <patternset refid="excluded.from.module.gra"/>
+  </patternset>
+  
+  <path id="gra.module.sourcepath">
+    <dirset dir="${module.gra.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.gra" depends="compile.module.gra.production,compile.module.gra.tests" description="Compile module Gra"/>
+  
+  <target name="compile.module.gra.production" depends="register.custom.compilers" description="Compile module Gra; production classes">
+    <mkdir dir="${gra.output.dir}"/>
+    <javac2 destdir="${gra.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.gra}/javac">
+      <compilerarg line="${compiler.args.gra}"/>
+      <bootclasspath refid="gra.module.bootclasspath"/>
+      <classpath refid="gra.module.production.classpath"/>
+      <src refid="gra.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.gra"/>
+    </javac2>
+    
+    <copy todir="${gra.output.dir}">
+      <fileset dir="${module.gra.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.gra.tests" depends="register.custom.compilers,compile.module.gra.production" description="compile module Gra; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.gra" description="cleanup module">
+    <delete dir="${gra.output.dir}"/>
+    <delete dir="${gra.testoutput.dir}"/>
+  </target>
+</project>
