@@ -40,11 +40,13 @@ public class Board extends JPanel implements ActionListener {
             u.move();
             o.move();
 
-            if(punkty > 300 )
+            if(punkty > 100 )
             {
+
                 punkty = 0;
                 u.dx++;
                 o.dx++;
+
             }
 
             if(p.y > 150)
@@ -114,6 +116,10 @@ public class Board extends JPanel implements ActionListener {
         if(dude1.intersects(object1) || dude1.intersects(object2))
         {
             p.alive = false;
+            punkty = 0;
+            u.dx = 2;
+            o.dx = 2;
+
         }
 
         if(p.getBounds().getX() > o.getBounds().getX() && p.getBounds().getX() < o.getBounds().getX() + 60 && p.alive == true ){
