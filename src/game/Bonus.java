@@ -3,19 +3,19 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Random;
 
-public class Object {
+public class Bonus {
     int x, y, dx;
     Image object;
+    boolean alive;
 
-    public Object() {
-        ImageIcon i = new ImageIcon("C:/programowanie/slupek.png");
+    public Bonus() {
+        ImageIcon i = new ImageIcon("C:/programowanie/bonus.png");
         object = i.getImage();
         x = 900;
         y = 125;
-        Random generator = new Random();
-        dx = generator.nextInt(2)+1;
+        dx = 3;
+        alive = true;
     }
 
     public void move() {
@@ -34,15 +34,15 @@ public class Object {
         return object;
     }
 
-    public Rectangle getBounds()
-    {
-        return new Rectangle(x,y, 60, 50);
+    public Rectangle getBounds(){
+        return new Rectangle(x, y, 50, 152);
     }
 
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_SPACE) {
             x = 900;
+            alive = true;
         }
     }
 }

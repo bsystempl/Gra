@@ -9,6 +9,7 @@ public class Board extends JPanel implements ActionListener {
     Dude p;
     Object o;
     Object u;
+    Bonus b;
     public Image img;
     public Image img1;
     Timer time;
@@ -20,6 +21,8 @@ public class Board extends JPanel implements ActionListener {
         p = new Dude();
         o = new Object();
         u = new Object();
+        b = new Bonus();
+
         u.y = 0;
         u.x = 900;
         addKeyListener(new AL());
@@ -34,18 +37,24 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+            Random generator = new Random();
+
             CheckAlive();
+            checkBonus();
+
             p.move();
             p.moveY();
             u.move();
             o.move();
 
+        if(b.alive)  b.move();
+
+
             if(punkty > 100 )
             {
 
                 punkty = 0;
-                u.dx++;
-                o.dx++;
+                b.alive = true;
 
             }
 
@@ -60,13 +69,30 @@ public class Board extends JPanel implements ActionListener {
             }
 
 
-            if(o.x < 0 && u.x < 0)
+            if(o.x < 0)
             {
-                Random generator = new Random();
-                int a = p.getX()+400;
+                int a = p.getX() + generator.nextInt(300)+100;
                 o.x = a;
-                u.x = a;
+                int ox = generator.nextInt(2)+1;
+                o.dx = ox;
             }
+
+            if(u.x < 0)
+            {
+                int a1 = p.getX() + generator.nextInt(300)+100;
+                u.x = a1;
+                int ux = generator.nextInt(2)+1;
+                u.dx = ux;
+
+            }
+
+            if(b.x < 0)
+            {
+                b.alive = false;
+                b.x = 900;
+
+            }
+
             repaint();
     }
 
@@ -78,11 +104,15 @@ public class Board extends JPanel implements ActionListener {
         g2d.drawImage(p.getImage(), p.getX(), p.getY(), null);
         g2d.drawImage(o.getImage(), o.getX(), o.getY(), null);
         g2d.drawImage(u.getImage(), u.getX(), u.getY(), null);
+
+        if(b.alive)
+            g2d.drawImage(b.getImage(), b.getX(), u.getY(), null);
+
         g2d.setColor(Color.red);
         g2d.setFont(new Font("arial", Font.PLAIN, 20));
         g2d.drawString(p.z.toString(), 900, 20);
 
-        if(p.alive == false)
+        if(!p.alive)
         {
 
             g2d.drawImage(img1, 0, 0, null);
@@ -98,16 +128,24 @@ public class Board extends JPanel implements ActionListener {
             p.keyReleased(e);
             o.keyReleased(e);
             u.keyReleased(e);
-            //CheckAlive();
+            b.keyReleased(e);
+            checkBonus();
         }
 
         public void keyPressed(KeyEvent e) {
             p.keyPressed(e);
-            //CheckAlive();
+            checkBonus();
 
         }
     }
 
+    public void checkBonus()
+    {
+        if(p.getBounds().intersects(b.getBounds()))
+        {
+            System.out.println("bonus!");
+        }
+    }
     public void CheckAlive(){
         Rectangle dude1 = p.getBounds();
         Rectangle object1 = o.getBounds();
@@ -119,15 +157,12 @@ public class Board extends JPanel implements ActionListener {
             punkty = 0;
             u.dx = 2;
             o.dx = 2;
-
         }
 
-        if(p.getBounds().getX() > o.getBounds().getX() && p.getBounds().getX() < o.getBounds().getX() + 60 && p.alive == true ){
-                System.out.println("przeskoczono!");
+        if(p.getBounds().getX() > o.getBounds().getX() && p.getBounds().getX() < o.getBounds().getX() + 60 && p.alive ){
                 p.z = p.z + 1;
                 punkty ++;
             }
-
 
     }
 }
