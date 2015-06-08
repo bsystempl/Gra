@@ -45,8 +45,13 @@ public class Dude {
         if (key == KeyEvent.VK_RIGHT)
             dx = 1;
 
-        if (key ==  KeyEvent.VK_UP)
+        if (key ==  KeyEvent.VK_UP){
             dy = -1;
+            ImageIcon i = new ImageIcon("C:/programowanie/jump.png");
+            still = i.getImage();
+
+        }
+
 
 
         if (key ==  KeyEvent.VK_X)
@@ -70,7 +75,8 @@ public class Dude {
         if (key == KeyEvent.VK_UP)
         {
             dy = 1;
-
+            ImageIcon i = new ImageIcon("C:/programowanie/still.png");
+            still = i.getImage();
 
         }
 

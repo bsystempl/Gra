@@ -10,7 +10,7 @@ public class Object {
     Image object;
 
     public Object() {
-        ImageIcon i = new ImageIcon("C:/programowanie/slupek.png");
+        ImageIcon i = new ImageIcon("C:/programowanie/slupek_bez_tla.png");
         object = i.getImage();
         x = 900;
         y = 125;
@@ -46,12 +46,12 @@ public class Object {
             Random generator = new Random();
             if(generator.nextBoolean())
             {
-                ImageIcon i = new ImageIcon("C:/programowanie/slupekmniejszy.jpg");
+                ImageIcon i = new ImageIcon("C:/programowanie/slupek_bez_tla.png");
                 object = i.getImage();
             }
             else
             {
-                ImageIcon i = new ImageIcon("C:/programowanie/slupek.png");
+                ImageIcon i = new ImageIcon("C:/programowanie/slupek_bez_tla2.png");
                 object = i.getImage();
             }
         }
