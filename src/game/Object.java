@@ -41,6 +41,21 @@ public class Object {
 
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
+        if(key == KeyEvent.VK_UP)
+        {
+            Random generator = new Random();
+            if(generator.nextBoolean())
+            {
+                ImageIcon i = new ImageIcon("C:/programowanie/slupekmniejszy.jpg");
+                object = i.getImage();
+            }
+            else
+            {
+                ImageIcon i = new ImageIcon("C:/programowanie/slupek.png");
+                object = i.getImage();
+            }
+        }
+
         if (key == KeyEvent.VK_SPACE) {
             x = 900;
         }

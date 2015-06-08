@@ -84,6 +84,8 @@ public class Board extends JPanel implements ActionListener {
                 int ux = generator.nextInt(2)+1;
                 u.dx = ux;
 
+                int b1 = p.getY() + generator.nextInt();
+
             }
 
             if(b.x < 0)
@@ -92,7 +94,6 @@ public class Board extends JPanel implements ActionListener {
                 b.x = 900;
 
             }
-
             repaint();
     }
 
