@@ -40,7 +40,7 @@ public class Board extends JPanel implements ActionListener {
             Random generator = new Random();
 
             CheckAlive();
-            checkBonus();
+
 
             p.move();
             p.moveY();
@@ -126,7 +126,6 @@ public class Board extends JPanel implements ActionListener {
     private class AL extends KeyAdapter {
         public void keyReleased(KeyEvent e) {
             p.keyReleased(e);
-            p.keyReleased(e);
             o.keyReleased(e);
             u.keyReleased(e);
             b.keyReleased(e);
@@ -142,11 +141,13 @@ public class Board extends JPanel implements ActionListener {
 
     public void checkBonus()
     {
-        if(p.getBounds().intersects(b.getBounds()))
+        if(p.getX() >= b.getX() && p.getY() <= b.getY() && p.getX()+18 <= b.getX() + 152 && p.getY()+25 <= b.getY() + 50 )
         {
-            System.out.println("bonus!");
+            p.z = p.z  + 10;
         }
+
     }
+
     public void CheckAlive(){
         Rectangle dude1 = p.getBounds();
         Rectangle object1 = o.getBounds();

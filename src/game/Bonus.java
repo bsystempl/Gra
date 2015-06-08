@@ -3,6 +3,7 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class Bonus {
     int x, y, dx;
@@ -43,6 +44,12 @@ public class Bonus {
         if (key == KeyEvent.VK_SPACE) {
             x = 900;
             alive = true;
+        }
+
+        if(key == KeyEvent.VK_UP)
+        {
+            Random generator = new Random();
+            y = generator.nextInt(130)+1;
         }
     }
 }
