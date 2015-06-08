@@ -9,6 +9,7 @@ public class Dude {
     int x, dx, y, dy;
     Image still;
     boolean alive;
+    boolean pause;
     Integer z;
     public Dude() {
         ImageIcon i = new ImageIcon("C:/programowanie/still.png");
@@ -17,6 +18,7 @@ public class Dude {
         x = 10;
         y = 150;
         alive = true;
+        pause = false;
     }
 
     public void move() {
@@ -50,6 +52,18 @@ public class Dude {
             ImageIcon i = new ImageIcon("C:/programowanie/jump.png");
             still = i.getImage();
 
+        }
+
+        if(key == KeyEvent.VK_ESCAPE)
+        {
+            if(pause)
+            {
+                pause = false;
+            }
+            else
+            {
+                pause = true;
+            }
         }
 
 

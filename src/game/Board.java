@@ -37,6 +37,8 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+
+        if(!p.pause) {
             Random generator = new Random();
 
             CheckAlive();
@@ -47,55 +49,51 @@ public class Board extends JPanel implements ActionListener {
             u.move();
             o.move();
 
-        if(b.alive)  b.move();
+            if (b.alive) b.move();
 
 
-            if(punkty > 100 )
-            {
+            if (punkty > 100) {
 
                 punkty = 0;
                 b.alive = true;
 
             }
 
-            if(p.y > 150)
-            {
+            if (p.y > 150) {
                 p.dy = 0;
             }
 
-            if(p.y <= 0)
-            {
+            if (p.y <= 0) {
                 p.dy = 2;
             }
 
 
-            if(o.x < 0)
-            {
-                int a = p.getX() + generator.nextInt(300)+100;
+            if (o.x < 0) {
+                int a = p.getX() + generator.nextInt(300) + 100;
                 o.x = a;
-                int ox = generator.nextInt(2)+1;
+                int ox = generator.nextInt(2) + 1;
                 o.dx = ox;
             }
 
-            if(u.x < 0)
-            {
-                int a1 = p.getX() + generator.nextInt(300)+100;
+            if (u.x < 0) {
+                int a1 = p.getX() + generator.nextInt(300) + 100;
                 u.x = a1;
-                int ux = generator.nextInt(2)+1;
+                int ux = generator.nextInt(2) + 1;
                 u.dx = ux;
 
                 int b1 = p.getY() + generator.nextInt();
 
             }
 
-            if(b.x < 0)
-            {
+            if (b.x < 0) {
                 b.alive = false;
                 b.x = 900;
 
             }
-            repaint();
-    }
+
+        }
+        repaint();
+        }
 
     public void paint(Graphics g) {
         super.paint(g);
@@ -112,6 +110,11 @@ public class Board extends JPanel implements ActionListener {
         g2d.setColor(Color.red);
         g2d.setFont(new Font("arial", Font.PLAIN, 20));
         g2d.drawString(p.z.toString(), 900, 20);
+
+        if(p.pause)
+        {
+            g2d.drawString("PAUZA", 450, 50);
+        }
 
         if(!p.alive)
         {
